@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{fancybox}
+\usepackage{tikz}
+
+\title{Homework 02: Binary Heaps}
+\date{\today}
+\author{Roberto Corti}
+
+\begin{document}
+	\maketitle
+	
+	\section*{Exercise 1,2,3}
+	
+	\section*{Exercise 4}
+	\textbf{Show that, with the array representation, the leaves of a
+	binary heap containing n nodes are indexed by $\lceil n/2 \rceil + 1, \lceil n/2 \rceil + 2, . . . n$.} \\
+
+
+
+	\noindent If we consider the node at the index $ \lceil n/2 \rceil +1$ and we know that its left child will be at the index 
+	
+	$$ 
+	\mathtt{LEFT}( \lceil n/2 \rceil +1 ) = 2(\lceil n/2 \rceil +1) > 2(n/2 - 1) = n.
+	$$
+	
+	The left child is in a position greater than $\mathtt{HEAP\_SIZE}$, so this node has no children and since a heap is a complete tree up to the leaf level, we conclude that the node $ \lceil n/2 \rceil +1$ is a leaf.
+	
+	\section*{Exercise 5}
+	\textbf{Show that the worst-case running time of $\mathtt{MAX\_HEAPIFY}$ on a heap of size n is $\Omega(\log_2 n)$.  (Hint: For a heap with n nodes, give node values that cause $\mathtt{MAX\_HEAPIFY}$ to be called recursively at every node on a simple path from the root down to a leaf).} \\
+	
+	\noindent Consider the following max-heap in which we would like to represent the worst-case scenario:
+	$$
+	A[1] = 1, ~ \textmd{and} ~~ A[i] = 0 ~~ \forall i \in {2,..., n}.
+	$$
+	Then, in order to conserve the heap property we have to apply $\mathtt{MAX\_HEAPIFY}$ for every level of the tree  for pushing the element of value 0 to the leftmost leaf. $\mathtt{MAX\_HEAPIFY}$ will be then called $\log_2n$ times, so its running time will be $\Theta (\log_2n)$. Thus, the worst case running time of $\mathtt{MAX\_HEAPIFY}$ is $\Omega(\log_2n)$.
+	
+	\section*{Exercise 6}
+	\textbf{Show that there are at most $\lceil n/2^{h+1} \rceil$ nodes of height $h$ in any $n$-element binary heap.} \\
+	
+	We know that for any $n > 0$, the number of leaves of nearly complete binary tree is $ \lceil n/2 \rceil$. With this result we can prove the thesis by induction. 
+	\begin{itemize}
+		\item Consider the case $h=0$; the thesis is satisfied since the unique level of the tree will contain $ \lceil n/2 \rceil = \lceil n/2^{0+1} \rceil$.
+		\item Consider the thesis true for $h-1$.
+		\item Let $N_h$ the number of nodes at leaf level of the tree $T_h$ that has height $h$. If we know consider the tree $T_{h-1}$ which is composed by $T_h$ up to the leaves of $T_h$. This tree will have $n' = n- \lceil n/2 \rceil$ nodes. Thus, if we consider $N'_{h-1}$ as the number of nodes at level $h-1$, this will be equal to $N_h$. By induction we have 
+		
+		$$
+		N'_{h-1} = N_{h} = \lceil n' / 2^h\rceil = \lceil \lceil n/2\rceil / 2^h\rceil \leq \lceil n / 2^{h+1}\rceil.
+		$$ 
+	\end{itemize}
+
+	
+	
+	
+\end{document}
