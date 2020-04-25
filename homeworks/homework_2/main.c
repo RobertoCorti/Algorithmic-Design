@@ -29,7 +29,7 @@ int main(){
   	
 	int *A=(int *)malloc(sizeof(int)*MAX_SIZE);
 	
-	fp = fopen ("insertion_time.txt","w");
+	fp = fopen ("result/insertion_time.txt","w");
 	fprintf (fp, "N \t time \n");
 	for(int n=5;n<MAX_SIZE;n+=10)
 	{
