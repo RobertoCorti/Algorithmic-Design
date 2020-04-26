@@ -24,23 +24,10 @@ const void *min_value(const binheap_type *H)
     	return NULL;
     }
 
-	//the minimum is stored in the root aka A[0]
-    return ADDR(H, 0);
+	unsigned int root = search(H, 0);
+    return ADDR(H, root);
 }
 
-
-void swap_keys(binheap_type *H, unsigned int n_a, unsigned int n_b)
-{
-	void *p_a = ADDR(H, n_a);
-	void *p_b = ADDR(H, n_b);
-	void *tmp = malloc(H->key_size);
-	
-	memcpy(tmp, p_a, H->key_size);
-	memcpy(p_a, p_b, H->key_size);
-	memcpy(p_b, tmp, H->key_size);
-	
-	free(tmp);
-} 
 
 //given node, it gives the index i* of key_pos s.t. key_pos[i*]=node
 unsigned int search(binheap_type *H, unsigned int node){
@@ -51,7 +38,7 @@ unsigned int search(binheap_type *H, unsigned int node){
 		}
 	}
 	
-	return 999;
+	return -1;
 }
 
 
@@ -63,7 +50,7 @@ void heapify(binheap_type *H, unsigned int node){
 	
 	j = search(H,2*(node)+1);
 	
-	if (j != 999){ 
+	if (j != -1){ 
 	
 		if(VALID_NODE(H, j) && H->leq( ADDR(H, H->key_pos[j]), ADDR(H, H->key_pos[dst_node]) ) ) { 
 			dst_node=j;
@@ -72,15 +59,14 @@ void heapify(binheap_type *H, unsigned int node){
 	
 	j = search(H, 2*(node+1));
 	
-	if (j != 999){
-	 
+	if (j != -1){
 		if(VALID_NODE(H, j) && H->leq( ADDR(H, H->key_pos[j]) , ADDR(H, H->key_pos[dst_node])) ) { 
 		dst_node=j;
 		}
 	}
 	
 	if (dst_node != n){
-		unsigned int c = dst_node;
+		unsigned int c = H->key_pos[dst_node];
 		H->key_pos[dst_node] = H->key_pos[n];
 		H->key_pos[n] = c;
 		
@@ -90,20 +76,32 @@ void heapify(binheap_type *H, unsigned int node){
 
 const void *extract_min(binheap_type *H)
 {
-  if(is_heap_empty(H)){
-		return NULL;
-  }
 
+	
+  	if(is_heap_empty(H)){
+		return NULL;
+  	}
 	//swapping keys among the root
 	//and the right-most leaf of last level
-	swap_keys(H, 0, H->num_of_elem-1);	
+	unsigned int root = search(H,0);
+	printf("search(H,0) = %d \n", root);
+	unsigned int last = search(H, H->num_of_elem-1);
+	printf("search(H,H->num_of_elem-1) = %d \n", last);
+	unsigned int c = H->key_pos[last];
+	H->key_pos[last] = H->key_pos[root];
+	H->key_pos[root] = c;	
+	
+	for (unsigned int k=0; k<H->num_of_elem; k++) {
+		printf("%d \t", H->key_pos[k]);
+	}
+	printf("\n");
 	
 	//deleting the right most leaf of the last level
 	H->num_of_elem--;
 	
 	heapify(H, 0);
-
-  return ADDR(H, H->num_of_elem+1);
+	
+  return ADDR(H, root);
 }
 
 const void * find_the_max(void *A, const unsigned int num_of_elem,
@@ -170,7 +168,6 @@ void delete_heap(binheap_type *H)
 const void *decrease_key(binheap_type *H, void *node, const void *value)
 {
     unsigned int node_idx = INDEX_OF(H, node);
-    
     //if node not belong to H or *value->*node return NULL
     if(VALID_NODE(H,node) || !(H->leq(value,node)) ) {
     	return NULL;
@@ -178,15 +175,17 @@ const void *decrease_key(binheap_type *H, void *node, const void *value)
     
     memcpy(node, value, H->key_size);
 
-	unsigned int parent_idx = PARENT(node_idx);
-	void *parent = ADDR(H, parent_idx);
+	unsigned int parent_pos = PARENT(H->key_pos[node_idx]);
+	unsigned int parent_idx = search(H, parent_pos);
 	
-	while((node_idx != 0) && (!H->leq(parent,node)) ){
-		node = parent;
-		node_idx = parent_idx;
+	while((H->key_pos[node_idx] != 0) && (!H->leq(ADDR(H,parent_idx),node)) ){
 		
-		parent_idx = PARENT(node_idx);
-		parent = ADDR(H, node_idx);
+		unsigned int c = H->key_pos[node_idx];
+		H->key_pos[node_idx] = H->key_pos[parent_idx];
+		H->key_pos[parent_idx] = c;
+		
+		parent_pos = PARENT(H->key_pos[node_idx]);
+		parent_idx = search(H, parent_pos); 
 	} 
 	
     return node;
@@ -194,20 +193,24 @@ const void *decrease_key(binheap_type *H, void *node, const void *value)
 
 const void *insert_value(binheap_type *H, const void *value)
 {
+
     if (H->max_size == H->num_of_elem){
     	return NULL;
     }
-    
+   
     if(H->num_of_elem == 0 || (H->leq(H->max_order_value, value)) ) 
     {
     	memcpy(H->max_order_value, value, H->key_size);
     }
     
     void * new_node_addr = ADDR(H, H->num_of_elem);
-    
+    H->key_pos[H->num_of_elem] = H->num_of_elem;
+	printf("%d \n", *((int*)value));
     memcpy(new_node_addr, H->max_order_value, H->key_size);
     
     H->num_of_elem++;
+    
+    printf("%d \n", *((int*)value));
 
     return decrease_key(H, new_node_addr, value);
 }
@@ -217,15 +220,8 @@ void print_heap(binheap_type *H,
 {
 	unsigned int node = 0;						  
     unsigned int index = search(H,node);
-    printf("search(h, %d) = %d \n",node,  index);
     unsigned int next_level_node = 1; //store the index of the left-most node of the next level    								 
     unsigned int next_level_node_idx = search(H,next_level_node);
-    printf("search(h, %d) = %d \n",next_level_node,  next_level_node_idx);
-    
-    for (unsigned int k=0; k<H->num_of_elem; k++){
-    	printf(" %d \t", H->key_pos[k]);
-    }
-    printf("\n");
  
     while(node < H->num_of_elem){
     

@@ -147,7 +147,14 @@ const void *insert_value(binheap_type *H, const void *value);
 void print_heap(binheap_type *H, 
                 void (*key_printer)(const void *value));
                 
-                
+/**********************************************************************
+ * Print the index i of the array index for which index[i] = node.
+ *
+ *
+ *
+ * @param H is the heap in which the key value should be decreased.
+ * @param node .
+ **********************************************************************/
 unsigned int search(binheap_type *H, unsigned int node);            
 
 
