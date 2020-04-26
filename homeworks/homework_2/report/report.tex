@@ -1,7 +1,19 @@
+% !TeX spellcheck = en_UK
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{fancybox}
 \usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
 
 \title{Homework 02: Binary Heaps}
 \date{\today}
@@ -10,7 +22,67 @@
 \begin{document}
 	\maketitle
 	
-	\section*{Exercise 1,2,3}
+	\section*{Exercise 1}
+	\textbf{Implement the array-based representation of binary heap together with the functions $\mathtt{HEAP MIN}$, $\mathtt{REMOVE ~ MIN}$, $\mathtt{HEAPIFY}$, $\mathtt{BUILD ~  HEAP}$, $\mathtt{DECREASE ~ KEY}$ and $\mathtt{INSERT ~ VALUE}$}. \\
+	
+	\noindent The array-based representation of a binary heap is done in this folder. This version has been written in C language. 
+	First of all I defined \texttt{total\_order\_type} in order to make an object able to express an ordering criterion inside the heap. Then, I create a struct \texttt{binheap\_type} in which it is stored:
+	\begin{itemize}
+		\item \texttt{void* A} : a void pointer that points array used to store heaps nodes.
+		\item \texttt{unsigned int num\_of\_elem}: an integer used to store the number of nodes.
+		\item \texttt{unsigned int max\_size}: used to store the maximum number of nodes.
+		\item \texttt{size\_t key\_size}: used to store the size of the data type of the node.
+		\item \texttt{total\_order\_type leq}: a \texttt{total\_order\_type} for the ordering criterion of the heap.
+		\item \texttt{void* max\_order\_value}: used to store the maximum value for a node.
+	\end{itemize}
+
+	The requested functions are implemented in \texttt{binheap.c} file.
+		
+	\section*{Exercise 2}
+	\textbf{Implement an iterative version of $\mathtt{HEAPIFY}$.} \\
+	
+	\noindent An iterative version of \texttt{HEAPIFY} has been implemented in \texttt{binheap.c}. The algorithm follows this pseudo-code:
+	\newpage
+	\begin{algorithm}
+		\caption{\texttt{HEAPIFY(node)}}\label{euclid}
+	\begin{algorithmic}
+		\State $\textit{destination\_node} \gets \textit{node}$
+		\Do
+		
+		\State $\textit{node} \gets \textit{destination\_node}$
+		\State $\textit{child} \gets \text{RIGHT CHILD}(\textit{node})$
+		
+		\If{ $\text{ADDR}(\textit{node}) \preceq \text{ADDR}(\textit{child})$ } 
+		\State $\textit{destination\_node} \gets \textit{child}$
+		\EndIf
+		
+		\State $\textit{child} \gets \text{LEFT CHILD}(\textit{node})$
+		
+		\If{ $\text{ADDR}(\textit{node}) \preceq \text{ADDR}(\textit{child})$ } 
+		\State $\textit{destination\_node} \gets \textit{child}$
+		\EndIf
+		
+		\If {$\textit{destination\_node} \neq \textit{node}$}
+		\State $\text{SWAP}(\textit{destination\_node}, \textit{node})$
+		\EndIf
+		
+		\doWhile{$\textit{destination\_node} \neq \textit{node}$} % <--- use \doWhile for the "while" at the end
+	\end{algorithmic}
+	\end{algorithm}
+	
+	\section*{Exercise 3}
+	\textbf{Test the implementation on a set of instances of the problem and evaluate the execution time.} \\
+	
+	\noindent In order to test the implementation I create two test codes: \texttt{test\_insert.c}, \texttt{heap\_test.c}. The first code does a benchmark on the \texttt{insert\_key} increase the size by progressively inserting nodes. The asymptotic behaviour of this function is represented by the following plot.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{plot_benchmark.png}  
+		\caption{Benchmark of the \texttt{insert\_key} function.}
+		\label{plot}
+	\end{figure}
+	
+	On the other hand, \texttt{heap\_test.c} does a check of all the implemented functions just performing all the functions written down \texttt{binheap.c}
 	
 	\section*{Exercise 4}
 	\textbf{Show that, with the array representation, the leaves of a

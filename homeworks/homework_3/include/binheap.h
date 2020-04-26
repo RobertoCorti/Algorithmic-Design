@@ -12,6 +12,7 @@
  */
 typedef struct {
   void* A;                  //array used to store heaps nodes
+  unsigned int* key_pos;    //array used to store the heap positions
   unsigned int num_of_elem; //this is number of nodes in heap
   unsigned int max_size;    //max number of nodes
   size_t key_size;          //size of keytype
@@ -143,7 +144,11 @@ const void *insert_value(binheap_type *H, const void *value);
  * @param H is the heap in which the key value should be decreased.
  * @param key_printer is a function to print a key value.
  **********************************************************************/
-void print_heap(const binheap_type *H, 
+void print_heap(binheap_type *H, 
                 void (*key_printer)(const void *value));
+                
+                
+unsigned int search(binheap_type *H, unsigned int node);            
+
 
 #endif // __BIN_HEAP__
