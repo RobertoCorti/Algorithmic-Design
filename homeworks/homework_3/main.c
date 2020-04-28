@@ -8,7 +8,7 @@
 #include <limits.h>
 
 
-#define MAX_SIZE 7
+#define MAX_SIZE 16
 
 void int_printer(const void *value)
 {
@@ -25,16 +25,28 @@ int main(){
   	B[2] = 2;
   	B[3] = 7;
   	
-  	int i = 1;
-  	int *p = &i; 
-  	
+  	int *A=(int *)malloc(sizeof(int)*MAX_SIZE);
+  	A[0] = 10;
+  	A[1] = 5;
+  	A[2] = 8;
+  	A[3] = 12;
+  	A[4] = 1;
+
+	
+  	 
 	binheap_type *minH= build_heap(B,4,MAX_SIZE,sizeof(int),leq_int);
 	
 	print_heap(minH, int_printer);
 	
-	insert_value(minH, p);
+	for(int i=0; i<5; i++){
+		insert_value(minH, A+i);
+	}
 	
 	print_heap(minH, int_printer);
+	
+
+	
+	
 	
 	delete_heap(minH);
 	free(B); 	

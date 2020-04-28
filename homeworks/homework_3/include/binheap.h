@@ -155,7 +155,9 @@ void print_heap(binheap_type *H,
  * @param H is the heap in which the key value should be decreased.
  * @param node .
  **********************************************************************/
-unsigned int search(binheap_type *H, unsigned int node);            
+unsigned int search(binheap_type *H, unsigned int node);    
+
+        
 
 
 #endif // __BIN_HEAP__

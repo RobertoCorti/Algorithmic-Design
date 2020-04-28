@@ -41,6 +41,14 @@ unsigned int search(binheap_type *H, unsigned int node){
 	return -1;
 }
 
+void swap_keys(binheap_type *H, unsigned int index_a, unsigned int index_b){
+
+	unsigned int tmp = H->key_pos[index_a];
+	H->key_pos[index_a] = H->key_pos[index_b];
+	H->key_pos[index_b] = tmp;
+
+}
+
 
 void heapify(binheap_type *H, unsigned int node){
 
@@ -52,7 +60,7 @@ void heapify(binheap_type *H, unsigned int node){
 	
 	if (j != -1){ 
 	
-		if(VALID_NODE(H, j) && H->leq( ADDR(H, H->key_pos[j]), ADDR(H, H->key_pos[dst_node]) ) ) { 
+		if(VALID_NODE(H, j) && H->leq( ADDR(H, j), ADDR(H, dst_node) ) ) { 
 			dst_node=j;
 		}
 	}
@@ -60,16 +68,13 @@ void heapify(binheap_type *H, unsigned int node){
 	j = search(H, 2*(node+1));
 	
 	if (j != -1){
-		if(VALID_NODE(H, j) && H->leq( ADDR(H, H->key_pos[j]) , ADDR(H, H->key_pos[dst_node])) ) { 
+		if(VALID_NODE(H, j) && H->leq( ADDR(H, j), ADDR(H, dst_node) )) { 
 		dst_node=j;
 		}
 	}
 	
 	if (dst_node != n){
-		unsigned int c = H->key_pos[dst_node];
-		H->key_pos[dst_node] = H->key_pos[n];
-		H->key_pos[n] = c;
-		
+		swap_keys(H, dst_node, n);
 		heapify(H, H->key_pos[n]);		
 	}
 }
@@ -180,9 +185,7 @@ const void *decrease_key(binheap_type *H, void *node, const void *value)
 	
 	while((H->key_pos[node_idx] != 0) && (!H->leq(ADDR(H,parent_idx),node)) ){
 		
-		unsigned int c = H->key_pos[node_idx];
-		H->key_pos[node_idx] = H->key_pos[parent_idx];
-		H->key_pos[parent_idx] = c;
+		swap_keys(H, node_idx, parent_idx);
 		
 		parent_pos = PARENT(H->key_pos[node_idx]);
 		parent_idx = search(H, parent_pos); 
@@ -197,7 +200,7 @@ const void *insert_value(binheap_type *H, const void *value)
     if (H->max_size == H->num_of_elem){
     	return NULL;
     }
-   
+	  
     if(H->num_of_elem == 0 || (H->leq(H->max_order_value, value)) ) 
     {
     	memcpy(H->max_order_value, value, H->key_size);
@@ -205,12 +208,10 @@ const void *insert_value(binheap_type *H, const void *value)
     
     void * new_node_addr = ADDR(H, H->num_of_elem);
     H->key_pos[H->num_of_elem] = H->num_of_elem;
-	printf("%d \n", *((int*)value));
     memcpy(new_node_addr, H->max_order_value, H->key_size);
     
     H->num_of_elem++;
-    
-    printf("%d \n", *((int*)value));
+ 
 
     return decrease_key(H, new_node_addr, value);
 }
