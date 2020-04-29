@@ -113,7 +113,7 @@ void delete_heap(binheap_type *H);
  *         either the new value is greater than of equal to the old key
  *         value or the node does not belong to the H, NULL is returned.
  **********************************************************************/
-const void *decrease_key(binheap_type *H, void *node, const void *value);
+const void *decrease_key(binheap_type *H, unsigned int n, const void *value);
 
 /**********************************************************************
  * Insert a value in the heap.
@@ -147,15 +147,7 @@ const void *insert_value(binheap_type *H, const void *value);
 void print_heap(binheap_type *H, 
                 void (*key_printer)(const void *value));
                 
-/**********************************************************************
- * Print the index i of the array index for which index[i] = node.
- *
- *
- *
- * @param H is the heap in which the key value should be decreased.
- * @param node .
- **********************************************************************/
-unsigned int search(binheap_type *H, unsigned int node);    
+  
 
         
 

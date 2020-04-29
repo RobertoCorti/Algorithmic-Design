@@ -9,7 +9,7 @@
 #define RIGHT_CHILD(node) (2*(node+1))
 
 #define VALID_NODE(H, node) ((H)->num_of_elem > (node))
-#define ADDR(H, node) ((H)->A+(node)*(H->key_size))
+#define ADDR(H,node) ((H)->A+((H)->key_pos[node])*(H)->key_size)
 #define INDEX_OF(H, addr) ((addr-(H->A))/(H->key_size))
 
 
@@ -23,22 +23,8 @@ const void *min_value(const binheap_type *H)
     if(is_heap_empty(H)){
     	return NULL;
     }
-
-	unsigned int root = search(H, 0);
-    return ADDR(H, root);
-}
-
-
-//given node, it gives the index i* of key_pos s.t. key_pos[i*]=node
-unsigned int search(binheap_type *H, unsigned int node){
-
-	for(unsigned int k=0; k<H->num_of_elem; k++){
-		if(H->key_pos[k] == node){
-			return k;
-		}
-	}
-	
-	return -1;
+    
+    return ADDR(H, 0);
 }
 
 void swap_keys(binheap_type *H, unsigned int index_a, unsigned int index_b){
@@ -52,33 +38,27 @@ void swap_keys(binheap_type *H, unsigned int index_a, unsigned int index_b){
 
 void heapify(binheap_type *H, unsigned int node){
 
-	unsigned int n = search(H, node);
-	unsigned int dst_node=n; //in the slides m <- i
-	unsigned int j;
+	unsigned int dst_node = node;
+	unsigned int child;
 	
-	j = search(H,2*(node)+1);
-	
-	if (j != -1){ 
-	
-		if(VALID_NODE(H, j) && H->leq( ADDR(H, j), ADDR(H, dst_node) ) ) { 
-			dst_node=j;
-		}
+	child = RIGHT_CHILD(node);
+		
+	if(VALID_NODE(H, child) && H->leq( ADDR(H, child), ADDR(H, dst_node) ) ) { 
+			dst_node = child;
 	}
 	
-	j = search(H, 2*(node+1));
+	child = LEFT_CHILD(node);
 	
-	if (j != -1){
-		if(VALID_NODE(H, j) && H->leq( ADDR(H, j), ADDR(H, dst_node) )) { 
-		dst_node=j;
-		}
+	if(VALID_NODE(H, child) && H->leq( ADDR(H, child), ADDR(H, dst_node) )) { 
+		dst_node = child;
 	}
 	
-	if (dst_node != n){
-		swap_keys(H, dst_node, n);
-		heapify(H, H->key_pos[n]);		
+	if (dst_node != node){
+		swap_keys(H, dst_node, node);
+		heapify(H, node);		
 	}
 }
-
+/*
 const void *extract_min(binheap_type *H)
 {
 
@@ -108,7 +88,7 @@ const void *extract_min(binheap_type *H)
 	
   return ADDR(H, root);
 }
-
+*/
 const void * find_the_max(void *A, const unsigned int num_of_elem,
 						  const unsigned int key_size,total_order_type leq)
 {
@@ -170,28 +150,30 @@ void delete_heap(binheap_type *H)
     free(H);
 }
 
-const void *decrease_key(binheap_type *H, void *node, const void *value)
-{
-    unsigned int node_idx = INDEX_OF(H, node);
+const void *decrease_key(binheap_type *H, unsigned int n, const void *value)
+{ 
+	unsigned int node = n;
+    void * node_addr = ADDR(H, node);
+    
     //if node not belong to H or *value->*node return NULL
-    if(VALID_NODE(H,node) || !(H->leq(value,node)) ) {
+    if(!VALID_NODE(H,node) || !(H->leq(value, node_addr)) ) {
     	return NULL;
     }
     
-    memcpy(node, value, H->key_size);
+    memcpy(node_addr, value, H->key_size);
+       
+	unsigned int parent = PARENT(node);
 
-	unsigned int parent_pos = PARENT(H->key_pos[node_idx]);
-	unsigned int parent_idx = search(H, parent_pos);
-	
-	while((H->key_pos[node_idx] != 0) && (!H->leq(ADDR(H,parent_idx),node)) ){
+	while((node != 0) && (!H->leq(ADDR(H, PARENT(node)) ,node_addr)) ){
 		
-		swap_keys(H, node_idx, parent_idx);
+		parent = PARENT(node);
+		swap_keys(H, parent, node);
 		
-		parent_pos = PARENT(H->key_pos[node_idx]);
-		parent_idx = search(H, parent_pos); 
+		node = parent;
+		node_addr = ADDR(H, node);
 	} 
 	
-    return node;
+    return ADDR(H,node);
 }
 
 const void *insert_value(binheap_type *H, const void *value)
@@ -200,46 +182,46 @@ const void *insert_value(binheap_type *H, const void *value)
     if (H->max_size == H->num_of_elem){
     	return NULL;
     }
-	  
+    
     if(H->num_of_elem == 0 || (H->leq(H->max_order_value, value)) ) 
     {
     	memcpy(H->max_order_value, value, H->key_size);
     }
     
-    void * new_node_addr = ADDR(H, H->num_of_elem);
     H->key_pos[H->num_of_elem] = H->num_of_elem;
+    
+    void * new_node_addr = ADDR(H, H->num_of_elem);
+    
     memcpy(new_node_addr, H->max_order_value, H->key_size);
     
     H->num_of_elem++;
- 
 
-    return decrease_key(H, new_node_addr, value);
+    return decrease_key(H, H->num_of_elem-1, value);
 }
 
 void print_heap(binheap_type *H, 
                 void (*key_printer)(const void *value))
 {
 	unsigned int node = 0;						  
-    unsigned int index = search(H,node);
     unsigned int next_level_node = 1; //store the index of the left-most node of the next level    								 
-    unsigned int next_level_node_idx = search(H,next_level_node);
+ 
  
     while(node < H->num_of_elem){
     
-    	if(index == next_level_node_idx){
+    	if(node == next_level_node)
+    	{
     		printf("\n");
     		next_level_node=LEFT_CHILD(node);
-    		next_level_node_idx = search(H,next_level_node);
     	}
+    	
     	else 
     	{
     		printf("\t");
     	}
     	
-    	key_printer(ADDR(H,(int)index));
+    	key_printer( ADDR(H, node) );
     	
     	node++;
-    	index = search(H,node);
     }
     
     printf("\n");
