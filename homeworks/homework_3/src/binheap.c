@@ -58,37 +58,26 @@ void heapify(binheap_type *H, unsigned int node){
 		heapify(H, node);		
 	}
 }
-/*
+
 const void *extract_min(binheap_type *H)
 {
-
 	
   	if(is_heap_empty(H)){
 		return NULL;
   	}
 	//swapping keys among the root
 	//and the right-most leaf of last level
-	unsigned int root = search(H,0);
-	printf("search(H,0) = %d \n", root);
-	unsigned int last = search(H, H->num_of_elem-1);
-	printf("search(H,H->num_of_elem-1) = %d \n", last);
-	unsigned int c = H->key_pos[last];
-	H->key_pos[last] = H->key_pos[root];
-	H->key_pos[root] = c;	
-	
-	for (unsigned int k=0; k<H->num_of_elem; k++) {
-		printf("%d \t", H->key_pos[k]);
-	}
-	printf("\n");
-	
-	//deleting the right most leaf of the last level
-	H->num_of_elem--;
-	
-	heapify(H, 0);
-	
-  return ADDR(H, root);
+	swap_keys(H,0, H->num_of_elem-1);
+    
+    // deleting the right most leaf of the last level (A[num_of_elem-1])
+    H->num_of_elem--;
+    
+    heapify(H,0);
+    
+    return ADDR(H,H->num_of_elem);
 }
-*/
+
+
 const void * find_the_max(void *A, const unsigned int num_of_elem,
 						  const unsigned int key_size,total_order_type leq)
 {

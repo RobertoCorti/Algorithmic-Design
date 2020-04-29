@@ -38,13 +38,11 @@ int main(){
 	
 	print_heap(minH, int_printer);
 	
-	for(int i=0; i<5; i++){
-		insert_value(minH, A+i);
-	}
+	int * min = extract_min(minH);
 	
-	print_heap(minH, int_printer);
-	
+	printf("I extracted %d \n", *(min) );
 
+	print_heap(minH, int_printer);
 	
 	
 	
