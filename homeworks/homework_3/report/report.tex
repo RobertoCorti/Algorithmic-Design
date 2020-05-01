@@ -1,0 +1,65 @@
+% !TeX spellcheck = en_US
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+
+\title{Homework 03: Binary Heaps}
+\date{\today}
+\author{Roberto Corti}
+
+\begin{document}
+	\maketitle
+	\section*{Exercise 1}
+	\textbf{By modifying the code written during the last lessons, provide an array-based implementation of binary heaps which avoids to swap the elements in the array A. \\
+	(\textit{Hint}: use two arrays, key pos and rev pos, of natural numbers reporting the position of the key of a node and the node corresponding to a given position, respectively)} \\
+	
+	\noindent This new two-array based representation of the binary heap has been implemented inside this folder. I take as reference the same implementation done during the Homework 02. \\
+	Inside the struct \texttt{binheap\_type} I add a new member: \texttt{unsigned int* key\_pos}. This array store in its i-th position the index inside the nodes array of the i-th node. With this new implementation the functions \texttt{extract\_min}, \texttt{decrease\_key}, \texttt{heapify} and \texttt{print\_heap} don't modify the array of nodes \texttt{A} and all the operations related to the nodes involve just \texttt{key\_pos}.
+	\section*{Exercise 2}
+	\textbf{Consider the next algorithm:}
+	
+	\begin{algorithm}
+	\texttt{Ex2(A):} \label{ex2}
+	\begin{algorithmic}
+		\State \texttt{D} $\gets$ \texttt{build(A)}
+		
+		\While $\leftharpoonup$\texttt{is\_empty(A)}
+			\State \texttt{extract\_min(A)}
+		\EndWhile
+	
+	\end{algorithmic}
+\end{algorithm}
+
+	where \texttt{A} is an array. Compute the time-complexity of the algorithm when:
+	
+	\begin{itemize}
+		\item \texttt{build}, \texttt{is\_empty} $\in \Theta(1)$, \texttt{extract\_min} $\in \Theta(|D|)$;
+		\item \texttt{build} $\in \Theta(|A|)$, \texttt{is\_empty} $\in \Theta(1)$, \texttt{extract\_min} $\in O(\log|D|)$;
+	\end{itemize}
+
+	
+	\noindent In the first case, calling the function \texttt{build} will costs $\Theta(1)$, then the \texttt{while}-loop statement will be called $|D|$ times since \texttt{extract\_min} will remove at every iteration only one node. However, this last function costs $\Theta(|D|)$, so the cost of performing this function will be $\Theta(|D|^2)$. More formally,
+	
+	\begin{equation*}
+	T(|D|) = \Theta(1) + \sum_{i=1}^{|D|} (\Theta(1)+\Theta(|D|)) = \Theta(1) + \Theta(|D|) + \Theta(|D|^2) \in \Theta(|D|^2) 
+	\end{equation*}
+	 
+	 \noindent In the second case, assuming that $|A| = n = |D|$, the \texttt{while}-loop statement will be called $n$ times, but now \texttt{extract\_min} is a$O(\log n)$, then the overall cost of this part will raise to $O(n \log n)$:
+	 
+	 \begin{equation*}
+	 T(n) = \Theta(n) + \sum_{i=1}^{n} (\Theta(1)+O(\log n)) = \Theta(n) + O(n \log n) \in O(n \log n) 
+	 \end{equation*}
+	
+\end{document}
