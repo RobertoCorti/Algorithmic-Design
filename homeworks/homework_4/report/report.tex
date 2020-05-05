@@ -39,26 +39,29 @@
 	\textbf{Argue about the following statement and answer the questions:}
 	\begin{enumerate}[label=(\alph*)]
 		\item \textbf{HEAP SORT on a array $A$ whose length is $n$ takes time} $O(n)$. 
-		Since HEAP SORT complexity is given by the complexity of one single call of BUILD HEAP (which is $\Theta(n)$) and $n$ calls of EXTRACT MIN (which is $O(\log i)$, where $i$ is relative numbers of nodes in the heap) the overall cost of HEAP SORT is $O(n\log n)$. This higher bound represent an greater one respect to $O(n)$; thus in general HEAP SORT on a array $A$ of length $n$ doesn't take time $O(n)$. \\
+		Since HEAP SORT complexity is given by the complexity of one single call of BUILD HEAP (which is $\Theta(n)$) and $n$ calls of EXTRACT MIN (which is $O(\log i)$, where $i$ is relative number of nodes in the heap) the overall cost of HEAP SORT is $O(n\log n)$. This higher bound represent a greater one respect to $O(n)$; thus in general HEAP SORT on a array $A$ of length $n$ doesn't take time $O(n)$. \\
 		However, in a specific case in which the heap is built in such a way that EXTRACT MIN costs $\Theta(1)$, then the overall cost is $\Theta(n)$ and the statement holds.
 		
 		 
 		\item \textbf{HEAP SORT on a array $A$ whose length is $n$ takes time} $\Omega(n)$. 
-		As we explained in the point (a), we know that HEAP SORT in the best-scenario case has an overall cost that is $\Theta(n)$. Then, since $T_{HS} (n) = \Theta(n)$ this is equivalent to say that  $T_{HS} (n) = \Omega(n)$ and $O(n)$. Thus, since this lower bound holds for the best scenario will also hold for every possible case and we conclude that the statement is true. 
-		\item \textbf{What is the worst case complexity for HEAP SORT?}
-		The worst-case scenario in HEAP SORT is that one in which we do $n$ calls of EXTRACT MIN operation calls and for every iteration $i$ the cost of this function is $\Theta(\log i)$, where $i$ is the relatives number of nodes down the heap. Thus,
+		As we explained in the point (a), we know that HEAP SORT in the best-case scenario has an overall cost of $\Theta(n)$. Then, since $T_{HS} (n) = \Theta(n)$ this is equivalent to say that  $T_{HS} (n) = \Omega(n)$ and $O(n)$. Thus, if this lower bound holds for the best scenario will also hold for every possible case and we conclude that the statement is true. 
+		
+		\item \textbf{What is the worst case complexity for HEAP SORT?}\\
+		The worst-case scenario in HEAP SORT is that one in which we do $n$ calls of EXTRACT MIN operation and for every iteration $i$ the cost of this function is $\Theta(\log i)$, where $i$ is the relatives number of nodes down the heap. Thus,
 		\begin{equation*}
 		T_{HS} (n) = \Theta(n) + \sum_{i=1}^{n} \Theta(\log i) = \Theta(n) + \Theta(n\log n) = \Theta(n\log n).  
 		\end{equation*}
-		\item \textbf{QUICK SORT on a array $A$ whose length is $n$ takes time.} $O(n^3)$. 
-		On an array $A$ of length $n$ QUICK SORT has on average a time performance $T_{QS} = \Theta(n \log_2 n) $.  This will mean that on average $T_{QS}$ is both $O(n\log_2 n)$ and $\Omega(n\log_2 n)$. Since $O(n\log_2 n) \subset O(n^3)$ we can say that on  average QUICK SORT takes time $O(n^3)$. However, using such higher bound cannot be useful during performance analysis since we have found, in this case $n\log_2 n$, a cheaper function that can be a bound to our complexity function. 
+		
+		\item \textbf{QUICK SORT on a array $A$ whose length is $n$ takes time} $O(n^3)$. 
+		On an array $A$ of length $n$ QUICK SORT has on average a time performance $T_{QS} = \Theta(n \log_2 n) $.  This will mean that on average $T_{QS}$ is both $O(n\log_2 n)$ and $\Omega(n\log_2 n)$. Since $O(n\log_2 n) \subset O(n^3)$ we can say that on  average QUICK SORT takes time $O(n^3)$. However, using such higher bound it cannot be useful during performance analysis since we have found, in this case $n\log_2 n$, a cheaper function that can be a bound to our complexity function. 
 		The same reasoning can be applied to the worst-case scenario which has complexity equal to $\Theta(n^2) $.
-		\item \textbf{What is the complexity of QUICK SORT?}
+		
+		\item \textbf{What is the complexity of QUICK SORT?}\\
 		As we already stated in the previous point the complexity of QUICK SORT is on average and in the optimal case $\Theta(n\log n)$, while for the worst-case is $\Theta(n^2)$.
 		\item \textbf{BUBBLE SORT on a array $A$ whose length is $n$ takes time} $\Omega(n)$.
 		Since BUBBLE SORT involves two loops over the length $n$ of the array $A$, for any scenario the complexity of BUBBLE SORT is $\Theta(n^2)$. Automatically, BUBBLE SORT takes time $\Omega(n^2)$ and because $\Omega(n^2) \subset \Omega(n) $ we can conclude that the statement is formally true. However, we know that there exists a lower bound, in this case $n^2$, higher than $n$ and so this sentence is not useful in a performance analysis. 
 		\item  \textbf{What is the complexity of BUBBLE SORT?} \\
-		As we say before,  BUBBLE SORT involves two loops over the length $n$ of the array $A$, for any scenario the complexity of BUBBLE SORT is $\Theta(n^2)$. Automatically, BUBBLE SORT has a complexity $\Omega(n^2)$.
+		As we said before,  BUBBLE SORT involves two loops over the length $n$ of the array $A$, then for any scenario the complexity of BUBBLE SORT is $\Theta(n^2)$. 
 	\end{enumerate}
 
 	\section*{Exercise 4}
@@ -70,7 +73,7 @@
 			\end{cases} 
 	$$
 	
-	\noindent Let's use the above the relation for substituting the recursive term till join the case in which $n=32$:
+	\noindent Let's use the above the relation for substituting the recursive term till join the base case in which $n=32$:
 	\begin{eqnarray}
 	\nonumber
 	T(n) &=& 3T\Big(\frac{n}{4}\Big) + cn^{3/2}, \\
