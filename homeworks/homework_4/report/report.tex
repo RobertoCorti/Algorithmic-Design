@@ -73,30 +73,22 @@
 			\end{cases} 
 	$$
 	
-	\noindent Let's use the above the relation for substituting the recursive term till join the base case in which $n=32$:
+	\noindent Let's use the above the relation in order to build a recursion tree.  each node represents the cost of a single sub-problem somewhere in the set of recursive function invocations. We sum the costs within each level of the tree to obtain a set of per-level costs, and then we sum all the per-level costs to determine the total cost of all levels of the recursion. For convenience, we assume that $n$ is an exact power of $4$, so that all sub-problem sizes are integers. \\
+	
+	
+	DISEGNO \\
+	
+	
+	Given the tree at Figure ..., I add up the costs over all levels to determine the cost for the entire tree:
 	\begin{eqnarray}
 	\nonumber
-	T(n) &=& 3T\Big(\frac{n}{4}\Big) + cn^{3/2}, \\
+	T(n) &=& cn^{3/2} + \frac{3}{8} cn^{3/2} + ... + \Bigg( \frac{3}{8} \Bigg)^{\log_4 (n/32)-1} + \Theta(n^{\log_4 3}), \\
 	\nonumber
-	&=& 3\Bigg[ 3T\Big(\frac{n}{4^2}\Big) + c\Big(\frac{n}{4}\Big)^{3/2} \Bigg] + cn^{3/2},  \\
+	&=& cn^{3/2} \sum_{i=0}^{\log_4 (n/32)-1} \Bigg( \frac{3}{8} \Bigg)^i + \Theta(n^{\log_4 3}), \\
 	\nonumber
-	&=& 3^2 T\Big(\frac{n}{4^2}\Big) +3c\Big( \frac{n}{4} \Big)^{3/2} + cn^{3/2}, \\
+	&\leq &   cn^{3/2} \sum_{i=0}^{+\infty} \Bigg( \frac{3}{8} \Bigg)^i + \Theta(n^{\log_4 3}), \\
 	\nonumber
-	&=& ... \\
-	\nonumber
-	&=& 3^{k} T\Big(\frac{n}{4^k}\Big) + cn^{3/2} \sum_{i=0}^{k-1} \Big(\frac{3}{8}\Big)^i  , \\
-	\nonumber
-	&=& 3^{k} T\Big(\frac{n}{4^k}\Big) + cn^{3/2}\Bigg[\frac{1-(3/8)^k}{5/8} \Bigg] .
-	\end{eqnarray}
-	Looking to the base case, we want that $k^*$ that satisfies $\frac{n}{4^{k^*}} = 32 \Leftrightarrow k^* = \log_4 \frac{n}{32}$.	\\
-	Then, 
-	\begin{eqnarray}
-	\nonumber
-	T(n) &=& 3^{\log_4 (n/32) } \cdot c' + cn^{3/2} \Bigg[\frac{1-(3/8)^{\log_4 (n/32)}}{5/8}\Bigg], \\
-	\nonumber
-	&=& 3^{\log_3 (n/32) / \log_3 4} + cn^{3/2} \Bigg[\frac{1-(3/8)^{\log_{3/8} (n/32) / \log_{3/8} 4}}{5/8}\Bigg], \\
-	\nonumber
-	&=&  \frac{n}{32}^{1/\log_3 4} + cn^{3/2}\Bigg[ \frac{1-(n/32)^{1 / \log_{3/8} 4}}{5/8}\Bigg]
+	 & = &   \frac{8}{5} cn^{3/2} + \Theta(n^{\log_4 3}) ~ ~ \in O(n^{3/2}) .
 	\end{eqnarray}
 	
 	Thus, $ T(n) \in O(n^{3/2}) $. 
