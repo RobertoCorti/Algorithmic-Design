@@ -10,6 +10,9 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{fancybox}
+\usepackage{tikz}
+
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -76,13 +79,194 @@
 	\noindent Let's use the above the relation in order to build a recursion tree.  each node represents the cost of a single sub-problem somewhere in the set of recursive function invocations. We sum the costs within each level of the tree to obtain a set of per-level costs, and then we sum all the per-level costs to determine the total cost of all levels of the recursion. For convenience, we assume that $n$ is an exact power of $4$, so that all sub-problem sizes are integers. \\
 	
 	
-	DISEGNO \\
+	\begin{figure}[h]
+
+	\begin{center}
+		
+	\begin{tikzpicture}[level distance=1.4cm,
+	level 1/.style={sibling distance=4cm},
+	level 2/.style={sibling distance=1.3cm},
+	level 3/.style={sibling distance=0.7cm},
+	level 4/.style={sibling distance=0.4cm},
+	level 5/.style={sibling distance=0.2cm}]
+	\node {$cn^{3/2}$}
+	child {node {$c\big(\frac{n}{4}\big)^{\frac{3}{2}}$}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			    child {
+			    	node {$\vdots$}
+		     	        child {node {$1$} 
+		     	        }
+	     	         }
+	     	     child {
+	     	     	    node {$\vdots$}
+     	     	    	child {node{$...$} 
+          	    	    }
+              	      }  
+     	     	 child {
+     	     	 	node {$\vdots$}
+     	     	 	child {node{$...$} 
+     	     	 	}
+     	     	 }  
+          }
+	     child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+	     	child {
+	     		node {$\vdots$}
+	     		child {node {$...$} 
+	     		}
+	     	}
+	     	child {
+	     		node {$\vdots$}
+	     		child {node{$...$} 
+	     		}
+	     	}  
+	     	child {
+	     		node {$\vdots$}
+	     		child {node{$...$} 
+	     		}
+	     	}  
+	     }
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+		}
+	}
+	child {node {$c\big(\frac{n}{4}\big)^{\frac{3}{2}}$}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+		}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+		}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+		}
+	}
+	child {node {$c\big(\frac{n}{4}\big)^{\frac{3}{2}}$}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+		}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+		}
+		child {node {$c\big(\frac{n}{4^2}\big)^{\frac{3}{2}}$}
+			child {
+				node {$\vdots$}
+				child {node {$...$} 
+				}
+			}
+			child {
+				node {$\vdots$}
+				child {node{$...$} 
+				}
+			}  
+			child {
+				node {$\vdots$}
+				child {node{$1$} 
+				}
+			}  
+		}
+	};
+	\end{tikzpicture}
+	\caption{Recursion tree} \label{recursion_tree}
+	\end{center}
 	
+	\end{figure}
 	
-	Given the tree at Figure ..., I add up the costs over all levels to determine the cost for the entire tree:
+	\noindent Given the tree at Figure \ref{recursion_tree}, I add up the costs over all levels to determine the cost for the entire tree:
 	\begin{eqnarray}
 	\nonumber
-	T(n) &=& cn^{3/2} + \frac{3}{8} cn^{3/2} + ... + \Bigg( \frac{3}{8} \Bigg)^{\log_4 (n/32)-1} + \Theta(n^{\log_4 3}), \\
+	T(n) &=& cn^{3/2} + \frac{3}{4^{3/2}} cn^{3/2} + ... + \Bigg( \frac{3}{4^{3/2}} \Bigg)^{\log_4 (n/32)-1} cn^{3/2} + \Theta(n^{\log_4 3}),\\
+	\nonumber
+	&=& cn^{3/2} + \frac{3}{8} cn^{3/2} + ... + \Bigg( \frac{3}{8} \Bigg)^{\log_4 (n/32)-1} cn^{3/2} + \Theta(n^{\log_4 3}), \\ 
+	\nonumber
+	&=& cn^{3/2} \sum_{i=0}^{\log_4 (n/32)-1} \Bigg( \frac{3}{8} \Bigg)^i + \Theta(n^{\log_4 3}), 
+	\nonumber
+	\end{eqnarray}
+	
+	\begin{eqnarray}
 	\nonumber
 	&=& cn^{3/2} \sum_{i=0}^{\log_4 (n/32)-1} \Bigg( \frac{3}{8} \Bigg)^i + \Theta(n^{\log_4 3}), \\
 	\nonumber
