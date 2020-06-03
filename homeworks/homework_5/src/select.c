@@ -2,7 +2,6 @@
 #include "swap.h"
 #include "quick_sort.h"
 
-
 #define ADDR(A, i, key_size) (A+(i)*(key_size))
 
 unsigned int select_aux(void *A, unsigned int i, unsigned int l, unsigned int r, const size_t elem_size, total_order leq);
@@ -16,31 +15,49 @@ unsigned int select_index(void *A, const unsigned int n,
                           const size_t elem_size, 
                           total_order leq)
 {	
-	
-	return select_aux(A, i, 0, n, elem_size, leq);	
+	if(n<=10){
+        quick_sort(A,n,elem_size,leq);
+        return i;
+    }
+    unsigned int j=select_pivot(A,n,elem_size,leq);
+    pair_type bounds=tri_partition(A,j,0,n-1,elem_size,leq);
+    if(i<bounds.first)
+    {
+        return select_index(A,bounds.first-1,i,elem_size,leq);
+    }
+    if(i>bounds.second)
+    {
+        return select_index(ADDR(A,bounds.second,elem_size),
+                             n-bounds.second-1,
+                             i,elem_size,
+                             leq);
+    }
+    return i;
 }
 
 unsigned int select_aux(void *A, unsigned int i, unsigned int l, unsigned int r, const size_t elem_size, total_order leq)
 {
 
 	if(r-l<=10){
+		
 		quick_sort(A, r-l, elem_size, leq);
 		return i;		
 	}
 	
 	unsigned int j = select_pivot(ADDR(A, l, elem_size), r-l, elem_size, leq);
-	unsigned int k = balanced_partition(A, l, r, j, elem_size, leq);
 	
-	if(i==k){
-		return k;
+	pair_type k = tri_partition(A, l, r, j, elem_size, leq);
+	
+	if(i==k.first){
+		return k.first;
 	}
 	
-	if(i<k){
-		return select_aux(A, i, l, k-1, elem_size, leq); 
+	if(i<k.first){
+		return select_aux(A, i, l, k.first-1, elem_size, leq); 
 	}
 	
 	else {
-		return select_aux(A, i, k+1, r, elem_size, leq);
+		return select_aux(A, i, k.second+1, r, elem_size, leq);
 	}
 
 }
@@ -69,15 +86,12 @@ unsigned int select_pivot(void* A, unsigned int n, const size_t elem_size, total
 
 void quicksort_select_aux(void *A, unsigned int left,unsigned int right,const size_t elem_size,total_order leq){
 
-	unsigned int p, pivot;
+	while(left<right){
+        pair_type bounds = tri_partition(A,left+select_pivot(A+left*elem_size,right-left,elem_size,leq),left,right-1,elem_size,leq);
+        quicksort_select_aux(A,left,bounds.first,elem_size,leq);
+        left=bounds.second+1;
+    }
 	
-    while(left<right){
-      	//p = select_pivot(ADDR(A, left, elem_size), right-left, elem_size, leq);
-		pivot = balanced_partition(A, left, right, left, elem_size, leq);
-		
-		quicksort_select_aux(A, left, pivot, elem_size, leq);
-		left = pivot+1;	
-	}
     
 }
 

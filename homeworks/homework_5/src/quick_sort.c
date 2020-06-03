@@ -2,6 +2,61 @@
 #include "swap.h"
 #define ADDR(A, i, key_size) (A+(i)*(key_size))
 
+pair_type tri_partition(void *A, unsigned int pivot, unsigned int left, unsigned int right,const size_t elem_size, total_order leq)
+{
+    pair_type pair;
+    swap(ADDR(A,pivot,elem_size),ADDR(A,left,elem_size),elem_size);
+    pivot=left;
+    unsigned int i = left+1;
+    unsigned int j = right;
+    unsigned int same=0;
+ 	int equal;
+    while(i<=j)
+    {
+        equal = leq(ADDR(A,i,elem_size),ADDR(A,pivot,elem_size)) && leq(ADDR(A,pivot,elem_size),ADDR(A,i,elem_size)) ;
+        
+        //A[i] != A[pivot]
+        if(!equal)
+        {     
+        	//A[i] > A[pivot]   
+        	if( leq(ADDR(A,pivot,elem_size),ADDR(A,i,elem_size)) )
+        	{ 
+           	  swap(ADDR(A,i,elem_size),
+           	       ADDR(A,j,elem_size),
+           	       elem_size);
+                j--;
+            }
+            
+            //A[i] < A[pivot] 
+            else
+            { 
+            
+            	swap(ADDR(A,i,elem_size),
+           	       ADDR(A,pivot-same,elem_size),
+           	       elem_size);
+                pivot=i;
+                i++;
+            }
+        }
+   
+   		//A[i] = A[pivot]     
+        else
+        {
+            pivot=i;
+            i++;
+            same++;
+        }
+        
+    }
+      
+    swap(ADDR(A,pivot,elem_size),ADDR(A,j,elem_size),elem_size);  
+    
+    pair.second=j;
+    pair.first=j-same;
+    return pair;
+}
+
+
 void quick_sort(void *A, const unsigned int n, 
                 const size_t elem_size, 
                 total_order leq)

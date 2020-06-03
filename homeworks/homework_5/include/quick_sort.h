@@ -32,4 +32,15 @@ unsigned int partition(void *A, unsigned int l, unsigned int r, unsigned int piv
 
 unsigned int balanced_partition(void *A, unsigned int l, unsigned int r, unsigned int pivot, const size_t elem_size, total_order leq);
 
+typedef struct{
+	unsigned int first;
+	unsigned int second;
+} pair_type;
+
+
+pair_type tri_partition(void *A, unsigned int pivot, unsigned int left, unsigned int right,const size_t elem_size, total_order leq);
+
+
+
+
 #endif // __QUICK_SORT__
