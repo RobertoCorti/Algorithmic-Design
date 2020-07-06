@@ -15,7 +15,7 @@ A Makefile can be produced by using cmake as follows:
 
 Afterwards you can compile the code by executing `make`. This produces an executable named `strassen_test` which can be executed in POSIX systems by using the command:
 
-``bash
+```bash
 ./strassen_test 
 n Naive Alg.  Strassen's Alg. Same result
 1	0.000000	0.000000	1
