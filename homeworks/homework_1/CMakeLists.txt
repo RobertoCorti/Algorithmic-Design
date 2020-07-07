@@ -7,5 +7,12 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O4")
 
-add_executable (strassen_test main.c matrix.c strassen.c test.c padding.c rectangular.c)
+FILE (GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.c"
+	               "${PROJECT_SOURCE_DIR}/include/*.h")
+
+include_directories("${PROJECT_SOURCE_DIR}/include")
+
+
+
+add_executable (strassen_test ${SOURCES})
 target_link_libraries(strassen_test m)
