@@ -86,7 +86,7 @@ void strassen_aux(float **C, float const *const *const A,
                   const size_t B_f_row, const size_t B_f_col,
                   const size_t n)
 {
-    if (n <= (1<<5)) {
+    if (n <= (1<<6)) {
         naive_aux(C, A, B,
                   C_f_row, C_f_col,
                   A_f_row, A_f_col,
@@ -526,7 +526,10 @@ void strassen_matrix_multiplication(float **C, float const *const *const A,
 
 }
 
-
+/*
+ * this functions is exclusively meant to provide an
+ * easy to use API
+ */
 void strassen_matrix_multiplication_opt(float **C, float const *const *const A,
                                         float const *const *const B, size_t n)
 {

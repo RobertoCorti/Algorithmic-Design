@@ -12,15 +12,13 @@ int main(int argc, char *argv[]) {
     float **C0 = allocate_matrix(n, n);
     float **C1 = allocate_matrix(n, n);
 
-    /*
+    
     printf("n\tStrassen's Alg.\tNaive Alg.\tSame result\n");
-    for (size_t j = 1; j <= n; j = 3*j) 
+    for (size_t j = 1; j <= n; j = 2*j) 
     {   
         printf("%ld\t", j);
         fflush(stdout);   
-        //printf("%lf\t", test(strassen_matrix_multiplication, C1, A, B, j));
-        //fflush(stdout);
-        printf("%lf\t", test(strassen_matrix_multiplication_padding_sq, C1, A, B, j));
+        printf("%lf\t", test(strassen_matrix_multiplication, C1, A, B, j));
         fflush(stdout);
         printf("%lf\t", test(naive_matrix_multiplication, C0, A, B, j));
         fflush(stdout);
@@ -28,13 +26,9 @@ int main(int argc, char *argv[]) {
         printf("%d\n", same_matrix((float const *const *const)C0,
                                  (float const *const *const)C1, j, j));
     }
-    */ 
-    deallocate_matrix(A, n);
-    deallocate_matrix(B, n);
-    deallocate_matrix(C0, n);
-    deallocate_matrix(C1, n);
+    
 
-
+    
     int m, l, k;
 
     printf("\nPlease insert dimensions of the matrix to be multiplied. \nC(mxk) =  A(mxl) X B(lxk)\n");
@@ -62,6 +56,28 @@ int main(int argc, char *argv[]) {
 
     printf("\t\t\t\t\t\t %d\n", same_matrix((float const *const *const)CC,
                              (float const *const *const)C, m, k));
-  
+    
+
+    printf("n\tStrassen Alg.\tOpt.Strassen Alg.\tSame result\n");
+    for (size_t j = 1; j <= n; j = 2*j) 
+    {   
+        printf("%ld\t", j);
+        fflush(stdout);   
+        printf("%lf\t", test(strassen_matrix_multiplication, C1, A, B, j));
+        fflush(stdout);
+        printf("%lf\t", test(strassen_matrix_multiplication_opt, C0, A, B, j));
+        fflush(stdout);
+        
+
+        printf("%d\n", same_matrix((float const *const *const)C0,
+                                 (float const *const *const)C1, j, j));
+    }
+
+    deallocate_matrix(A, n);
+    deallocate_matrix(B, n);
+    deallocate_matrix(C0, n);
+    deallocate_matrix(C1, n);
+    
+
     return 0;
 }
