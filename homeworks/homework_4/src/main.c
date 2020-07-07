@@ -117,6 +117,7 @@ int main(int argc, char *argv[])
         test_and_print(quick_sort, A,
                        A_size, sizeof(int),
                        leq_int, NUM_OF_REPETITIONS);
+        printf("\t");
         //test_and_print(quick_sort_select, A,
         //               A_size, sizeof(int),
         //               leq_int, NUM_OF_REPETITIONS);
