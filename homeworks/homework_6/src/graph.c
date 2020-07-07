@@ -14,6 +14,8 @@ Graph build_graph(unsigned int n, Node * nodes, unsigned int ** weights)
     g.num_nodes = n;
     g.V = nodes;
     g.E = weights;
+
+    return g;
 }
 
 
@@ -22,12 +24,13 @@ Graph build_graph(unsigned int n, Node * nodes, unsigned int ** weights)
  */
 int weight(Graph* g, Node* s, Node* d)
 {
-    int check_s = s->id > g->num_nodes || s->id < g->num_nodes;
-    int check_d = d->id > g->num_nodes || d->id < g->num_nodes;
+    
+    int check_s = s->id > g->num_nodes || s->id < 0;
+    int check_d = d->id > g->num_nodes || d->id < 0;
 
     if (check_s || check_d )
     {
-        printf("error: index out of %d", g->num_nodes);
+        printf("error: index out of %d\n", g->num_nodes);
         return -9999;
     }
     
@@ -103,4 +106,42 @@ Node* node(Graph* g, int id)
     }
   }
   return NULL; 
+}
+
+void print_graph(Graph* g)
+{
+    int size = g->num_nodes;
+    printf("\n--------------------------------------------\n");
+    printf("                  GRAPH                      \n");
+    printf("\nNumber of nodes: %d\n", size);
+    
+    printf("\nAdjacency matrix:\n");
+    for(size_t i=0; i<size; i++)
+    {
+        for(int j=0; j<size; j++)
+        {
+            if(g->E[i][j]==INFTY)
+                printf("NULL\t");
+            else
+                printf("%d\t", g->E[i][j]);
+        }
+        printf("\n");
+    }
+
+    for(size_t i=0; i<size; i++)
+    {
+        Node node = g->V[i];
+
+        printf("\nnode %d: dist=%d", node.id, node.dist);
+        
+        if((node.pred)!=NULL)
+            printf(", pred=%d", node.pred->id);
+        else
+            printf(", ");
+
+    }
+
+    printf("\n");
+
+    printf("\n--------------------------------------------\n");
 }

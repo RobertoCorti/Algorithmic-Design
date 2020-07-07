@@ -27,6 +27,6 @@ Node ** neighbours(Graph *g, Node* node);
 
 Node* node(Graph* g, int id);
 
-
+void print_graph(Graph* g);
 
 #endif //__GRAPH__

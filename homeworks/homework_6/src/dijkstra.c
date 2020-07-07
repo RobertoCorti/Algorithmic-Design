@@ -41,14 +41,13 @@ void dijkstra(Graph* g, unsigned int source_id)
     
     Node * source = node(g, source_id);
     source->dist = 0;
-
+    
     Queue queue = build_queue(g->V, g->num_nodes);
     Queue *q = &queue;
-
+    
     while ( !(is_empty(q)) )
     {
         Node * u = extract_minimum(q);
-
         unsigned int num_neigh = num_neighbours(g, u);
         Node** neigh = neighbours(g, u);
 
