@@ -58,7 +58,7 @@ int main()
     */
     struct timespec start, end;  
     
-    unsigned int s1 = 35000;
+    unsigned int s1 = 50000;
     unsigned int** adj_mat_1 = (unsigned int **)malloc(sizeof(unsigned int *)*s1);  
     
     for(size_t i=0; i<s1; i++)
