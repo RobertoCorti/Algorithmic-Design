@@ -1,4 +1,4 @@
-## Homework 01: Matrix Multiplication
+## Homework 02: Binary Heaps
 
 #### How to compile
 
