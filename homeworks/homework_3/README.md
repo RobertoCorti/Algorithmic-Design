@@ -1,4 +1,4 @@
-## Homework 03
+## Homework 02: Binary Heaps (second part)
 
 1. By modifying the code written during the last lessons, provide an array-
    based implementation of binary heaps which avoids to swap the elements in the array A.

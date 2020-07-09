@@ -12,7 +12,10 @@
  */
 typedef struct {
   void* A;                  //array used to store heaps nodes
-  unsigned int* key_pos;    //array used to store the heap positions
+  unsigned int* key_pos;    //array used to store the positions of the nodes in A
+  unsigned int* rev_pos;    //array used to store the node position in the key_pos
+                            // key_pos: heap_position --> array_position
+                            // rev_pos: array_position --> heap_position
   unsigned int num_of_elem; //this is number of nodes in heap
   unsigned int max_size;    //max number of nodes
   size_t key_size;          //size of keytype
@@ -113,7 +116,7 @@ void delete_heap(binheap_type *H);
  *         either the new value is greater than of equal to the old key
  *         value or the node does not belong to the H, NULL is returned.
  **********************************************************************/
-const void *decrease_key(binheap_type *H, unsigned int n, const void *value);
+const void *decrease_key(binheap_type *H, void* node, const void *value);
 
 /**********************************************************************
  * Insert a value in the heap.
