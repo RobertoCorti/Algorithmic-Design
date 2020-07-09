@@ -29,4 +29,4 @@ N        time
 
  #### Report
 
-The final report of this homework can be read from [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_2/report/report.pdf)
+The final report of this homework can be read [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_2/report/report.pdf)
