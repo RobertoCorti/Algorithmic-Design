@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     float **C0 = allocate_matrix(n, n);
     float **C1 = allocate_matrix(n, n);
 
-    
+    /*
     printf("n\tStrassen's Alg.\tNaive Alg.\tSame result\n");
     for (size_t j = 1; j <= n; j = 2*j) 
     {   
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     printf("\t\t\t\t\t\t %d\n", same_matrix((float const *const *const)CC,
                              (float const *const *const)C, m, k));
     
-
+    */
     printf("n\tStrassen Alg.\tOpt.Strassen Alg.\tSame result\n");
     for (size_t j = 1; j <= n; j = 2*j) 
     {   
