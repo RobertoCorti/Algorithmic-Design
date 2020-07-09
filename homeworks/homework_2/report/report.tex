@@ -1,4 +1,4 @@
-% !TeX spellcheck = en_UK
+% !TeX spellcheck = en_US
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{fancybox}
@@ -25,18 +25,17 @@
 	\section*{Exercise 1}
 	\textbf{Implement the array-based representation of binary heap together with the functions $\mathtt{HEAP MIN}$, $\mathtt{REMOVE ~ MIN}$, $\mathtt{HEAPIFY}$, $\mathtt{BUILD ~  HEAP}$, $\mathtt{DECREASE ~ KEY}$ and $\mathtt{INSERT ~ VALUE}$}. \\
 	
-	\noindent The array-based representation of a binary heap is done in this folder. This version has been written in C language. 
+	\noindent The array-based representation of a binary heap is implemented in the file \texttt{src/binheap.c}.  \\
 	First of all I defined \texttt{total\_order\_type} in order to make an object able to express an ordering criterion inside the heap. Then, I create a struct \texttt{binheap\_type} in which it is stored:
 	\begin{itemize}
-		\item \texttt{void* A} : a void pointer that points array used to store heaps nodes.
-		\item \texttt{unsigned int num\_of\_elem}: an integer used to store the number of nodes.
-		\item \texttt{unsigned int max\_size}: used to store the maximum number of nodes.
-		\item \texttt{size\_t key\_size}: used to store the size of the data type of the node.
-		\item \texttt{total\_order\_type leq}: a \texttt{total\_order\_type} for the ordering criterion of the heap.
-		\item \texttt{void* max\_order\_value}: used to store the maximum value for a node.
+		\item \texttt{A} : a void pointer that points array used to store heaps nodes.
+		\item \texttt{num\_of\_elem}: a variable used to store the number of nodes.
+		\item \texttt{max\_size}: a variable used to store the maximum number of nodes.
+		\item \texttt{key\_size}: a variable used to store the size of the data type of the node.
+		\item \texttt{leq}: a \texttt{total\_order\_type} for the ordering criterion of the heap.
+		\item \texttt{max\_order\_value}: a variable used to store the maximum value for a node.
 	\end{itemize}
-
-	The requested functions are implemented in \texttt{binheap.c} file.
+Once defined this \texttt{struct}, the above requested functions are all implemented in \texttt{src/binheap.c}.
 		
 	\section*{Exercise 2}
 	\textbf{Implement an iterative version of $\mathtt{HEAPIFY}$.} \\
@@ -73,16 +72,15 @@
 	\section*{Exercise 3}
 	\textbf{Test the implementation on a set of instances of the problem and evaluate the execution time.} \\
 	
-	\noindent In order to test the implementation I create two test codes: \texttt{test\_insert.c}, \texttt{heap\_test.c}. The first code does a benchmark on the \texttt{insert\_key} increase the size by progressively inserting nodes. The asymptotic behaviour of this function is represented by the following plot.
-	
+	\noindent In order to test the implementation I create two test codes: \texttt{src/test\_insert.c}, \texttt{src/heap\_test.c}. The first code performs a benchmark on the \texttt{insert\_key} function by increasing the size inserting nodes progressively. The asymptotic behaviour of this function is represented by the following plot.
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=0.5\textwidth]{../plot/plot_benchmark.png}  
+		\includegraphics[width=0.8\textwidth]{../plot/plot_benchmark.png}  
 		\caption{Benchmark of the \texttt{insert\_key} function.}
 		\label{plot}
 	\end{figure}
-	
-	On the other hand, \texttt{heap\_test.c} does a check of all the implemented functions just performing all the functions written down \texttt{binheap.c}
+	\newpage
+	\noindent On the other hand, \texttt{heap\_test.c} does a check of all the implemented functions just performing all of them written down \texttt{src/binheap.c}
 	
 	\section*{Exercise 4}
 	\textbf{Show that, with the array representation, the leaves of a
@@ -91,11 +89,9 @@
 
 
 	\noindent If we consider the node at the index $ \lceil n/2 \rceil +1$ and we know that its left child will be at the index 
-	
 	$$ 
 	\mathtt{LEFT}( \lceil n/2 \rceil +1 ) = 2(\lceil n/2 \rceil +1) > 2(n/2 - 1) = n.
 	$$
-	
 	The left child is in a position greater than $\mathtt{HEAP\_SIZE}$, so this node has no children and since a heap is a complete tree up to the leaf level, we conclude that the node $ \lceil n/2 \rceil +1$ is a leaf.
 	
 	\section*{Exercise 5}
@@ -110,7 +106,7 @@
 	\section*{Exercise 6}
 	\textbf{Show that there are at most $\lceil n/2^{h+1} \rceil$ nodes of height $h$ in any $n$-element binary heap.} \\
 	
-	We know that for any $n > 0$, the number of leaves of nearly complete binary tree is $ \lceil n/2 \rceil$. With this result we can prove the thesis by induction. 
+	\noindent We know that for any $n > 0$, the number of leaves of nearly complete binary tree is $ \lceil n/2 \rceil$. With this result we can prove the thesis by induction. 
 	\begin{itemize}
 		\item Consider the case $h=0$; the thesis is satisfied since the unique level of the tree will contain $ \lceil n/2 \rceil = \lceil n/2^{0+1} \rceil$.
 		\item Consider the thesis true for $h-1$.

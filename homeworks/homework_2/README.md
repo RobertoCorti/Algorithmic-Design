@@ -8,8 +8,7 @@ A `Makefile` can be produced by using `cmake` as follows:
 cmake -G "Unix Makefiles" CMakeLists.txt 
 ```
 
-This will produce a `Makefile`; you can compile by executing `make`. This will generate an executable called `heap_test` that will evaluate
-the execution time for an increasing number of istances. The result will be written in a output file `result/insertion_time.txt`, that will contain the following table:
+This will produce a `Makefile` that is able to generate two executables: `heap_test` and `test_insert`. The first one will show the correctness of all the requested functions implemented in `src/binheap.c`. On the other hand,  `test_insert`  will evaluate the execution time of the `insert_key` function for an increasing number of istances. The result will be written in a output file `result/insertion_time.txt`, that will contain the following table:
 
 ```bash
 N        time
