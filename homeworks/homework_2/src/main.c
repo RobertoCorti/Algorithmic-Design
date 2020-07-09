@@ -1,5 +1,5 @@
-#include "include/binheap.h"
-#include "include/total_orders.h"
+#include "binheap.h"
+#include "total_orders.h"
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
@@ -45,6 +45,8 @@ int main(){
     	
     	delete_heap(minH);
 	}
+
+	printf("results written in result/insertion_time.txt\n");
 
  	free(A);
 	free(B); 	

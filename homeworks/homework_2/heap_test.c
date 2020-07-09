@@ -1,5 +1,5 @@
-#include "include/binheap.h"
-#include "include/total_orders.h"
+#include "binheap.h"
+#include "total_orders.h"
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
