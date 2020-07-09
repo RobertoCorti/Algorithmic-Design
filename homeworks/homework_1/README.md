@@ -52,3 +52,7 @@ n       Strassen Alg.   Opt.Strassen        Same result
 2048        0.000000        0.000000                1
 4096        0.000000        0.000000                1
 ```
+
+#### Report
+
+The final report of this homework can be read from [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_1/report/report.pdf)

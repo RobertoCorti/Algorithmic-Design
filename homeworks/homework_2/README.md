@@ -26,3 +26,7 @@ N        time
 115      0.000000
 ...      ....
  ```
+
+ #### Report
+
+The final report of this homework can be read from [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_2/report/report.pdf)
