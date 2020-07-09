@@ -28,7 +28,7 @@
 	\noindent The array-based representation of a binary heap is implemented in the file \texttt{src/binheap.c}.  \\
 	First of all I defined \texttt{total\_order\_type} in order to make an object able to express an ordering criterion inside the heap. Then, I create a struct \texttt{binheap\_type} in which it is stored:
 	\begin{itemize}
-		\item \texttt{A} : a void pointer that points array used to store heaps nodes.
+		\item \texttt{A}: a void pointer that points array used to store heaps nodes.
 		\item \texttt{num\_of\_elem}: a variable used to store the number of nodes.
 		\item \texttt{max\_size}: a variable used to store the maximum number of nodes.
 		\item \texttt{key\_size}: a variable used to store the size of the data type of the node.
@@ -88,11 +88,11 @@ Once defined this \texttt{struct}, the above requested functions are all impleme
 
 
 
-	\noindent If we consider the node at the index $ \lceil n/2 \rceil +1$ and we know that its left child will be at the index 
+	\noindent If we consider the node at the index $ \lceil n/2 \rceil +1$ and by definition its left child will be at the index 
 	$$ 
 	\mathtt{LEFT}( \lceil n/2 \rceil +1 ) = 2(\lceil n/2 \rceil +1) > 2(n/2 - 1) = n.
 	$$
-	The left child is in a position greater than $\mathtt{HEAP\_SIZE}$, so this node has no children and since a heap is a complete tree up to the leaf level, we conclude that the node $ \lceil n/2 \rceil +1$ is a leaf.
+	The left child is in a position greater than $\mathtt{HEAP\_SIZE}$, so the node at index $\lceil n/2 \rceil + 1$ has no children. Moreover, since a binary heap is a complete tree up to the leaf level, we conclude that the node $ \lceil n/2 \rceil +1$ is a leaf.
 	
 	\section*{Exercise 5}
 	\textbf{Show that the worst-case running time of $\mathtt{MAX\_HEAPIFY}$ on a heap of size n is $\Omega(\log_2 n)$.  (Hint: For a heap with n nodes, give node values that cause $\mathtt{MAX\_HEAPIFY}$ to be called recursively at every node on a simple path from the root down to a leaf).} \\
@@ -110,11 +110,11 @@ Once defined this \texttt{struct}, the above requested functions are all impleme
 	\begin{itemize}
 		\item Consider the case $h=0$; the thesis is satisfied since the unique level of the tree will contain $ \lceil n/2 \rceil = \lceil n/2^{0+1} \rceil$.
 		\item Consider the thesis true for $h-1$.
-		\item Let $N_h$ the number of nodes at leaf level of the tree $T_h$ that has height $h$. If we know consider the tree $T_{h-1}$ which is composed by $T_h$ up to the leaves of $T_h$. This tree will have $n' = n- \lceil n/2 \rceil$ nodes. Thus, if we consider $N'_{h-1}$ as the number of nodes at level $h-1$, this will be equal to $N_h$. By induction we have 
-		
+		\item Let $N_h$ the number of nodes at leaf level of the tree $T_h$ that has height $h$. Consider the tree $T_{h-1}$ which is composed by $T_h$ up to its leaves. This tree will have $n' = n- \lceil n/2 \rceil$ nodes. Thus, if we consider $N'_{h-1}$ as the number of nodes at level $h-1$, this will be equal to $N_h$. Then, by using the induction step we have 
 		$$
 		N'_{h-1} = N_{h} = \lceil n' / 2^h\rceil = \lceil \lceil n/2\rceil / 2^h\rceil \leq \lceil n / 2^{h+1}\rceil.
 		$$ 
+		which is our thesis.
 	\end{itemize}
 
 	
