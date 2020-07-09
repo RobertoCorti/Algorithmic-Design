@@ -157,42 +157,51 @@ void strassen_rectangular_multiplication(float** C, float const *const *const A,
                                           const size_t B_rows, const size_t B_cols 
                                          )
 {
-    size_t BA_r = A_rows;
-    size_t BB_r = BA_r;
-    size_t BB_c = B_cols;
-
-    size_t n = (BA_r>BB_c)? find_power_two(BA_r) : find_power_two(BB_c); 
-    // square dimension of every block
-    //printf("\nn=%d\n", n);
-    float*** A_p = partition_matrix(A, A_rows, A_cols, BA_r, BA_r, n, 0);
-    //A will be divided by column in blocks of dim BA_r x BA_r, then padded to sq. matrices of n
-    float*** B_p = partition_matrix(B, B_rows, B_cols, BB_r, BB_c, n, 1);
-    //B will be divided by row in blocks of dim BB_r x BB_r, then padded to sq. matrices of n
-    int n_blocks = A_cols/BA_r+1;
-    //printf("num_blocks = %d\n", n_blocks);
-    float** D = allocate_matrix(n,n); //this will be returned
-    float** C_aux = allocate_matrix(n,n); //this is auxiliary, for partial results
-
-
-    for(size_t i=0; i<n_blocks; i++)
+    if (A_rows==A_cols && B_rows==B_cols)
     {
-        naive_matrix_multiplication(C_aux, (float const *const *const)A_p[i], (float const *const *const)B_p[i], n); 
-        sum_matrix(D,(float const *const *const)D,(float const *const *const)C_aux, n);
+        strassen_matrix_multiplication_padding_sq(C, A, B, A_rows);
     }
 
-    for (size_t i = 0; i < n_blocks; i++) 
-    {
-        deallocate_matrix(A_p[i], n);
-        deallocate_matrix(B_p[i], n);
-    }
-  
-    free(A_p);
-    free(B_p);
-    deallocate_matrix(C_aux, n);
+    else
+    { 
+        size_t BA_r = A_rows;
+        size_t BB_r = BA_r;
+        size_t BB_c = B_cols;
 
-    for(size_t i=0; i<A_rows; i++)
-    {
-        memcpy(C[i], D[i], sizeof(float)*B_cols);
+        size_t n = (BA_r>BB_c)? find_power_two(BA_r) : find_power_two(BB_c); 
+        // square dimension of every block
+        
+        float*** A_p = partition_matrix(A, A_rows, A_cols, BA_r, BA_r, n, 0);
+        //A will be divided by column in blocks of dim BA_r x BA_r, then padded to sq. matrices of n
+        float*** B_p = partition_matrix(B, B_rows, B_cols, BB_r, BB_c, n, 1);
+        //B will be divided by row in blocks of dim BB_r x BB_r, then padded to sq. matrices of n
+        int n_blocks = A_cols/BA_r+1;
+        
+        float** D = allocate_matrix(n,n); //this will be returned
+        float** C_aux = allocate_matrix(n,n); //this is auxiliary, for partial results
+
+
+        for(size_t i=0; i<n_blocks; i++)
+        {
+            naive_matrix_multiplication(C_aux, (float const *const *const)A_p[i], (float const *const *const)B_p[i], n); 
+            sum_matrix(D,(float const *const *const)D,(float const *const *const)C_aux, n);
+        }
+
+        for (size_t i = 0; i < n_blocks; i++) 
+        {
+            deallocate_matrix(A_p[i], n);
+            deallocate_matrix(B_p[i], n);
+        }
+    
+        free(A_p);
+        free(B_p);
+        deallocate_matrix(C_aux, n);
+
+        for(size_t i=0; i<A_rows; i++)
+        {
+            memcpy(C[i], D[i], sizeof(float)*B_cols);
+        }
+        deallocate_matrix(D, n);
     }
-    deallocate_matrix(D, n);
+
 }

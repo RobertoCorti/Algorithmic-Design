@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     float **C0 = allocate_matrix(n, n);
     float **C1 = allocate_matrix(n, n);
 
-    /*
+    
     printf("n\tStrassen's Alg.\tNaive Alg.\tSame result\n");
     for (size_t j = 1; j <= n; j = 2*j) 
     {   
@@ -27,18 +27,17 @@ int main(int argc, char *argv[]) {
                                  (float const *const *const)C1, j, j));
     }
     
-
     
     int m, l, k;
 
-    printf("\nPlease insert dimensions of the matrix to be multiplied. \nC(mxk) =  A(mxl) X B(lxk)\n");
+    printf("\nInsert dimensions of the matrix to be multiplied: \n\nC(mxk) =  A(mxl) X B(lxk)\n");
     printf("\nm = ");
     scanf("%u", &m);
     printf("\nl = ");
     scanf("%u", &l);
     printf("\nk = ");
     scanf("%u", &k);
-
+    
     float** A1 = allocate_random_matrix(m,l);
     float** B1 = allocate_random_matrix(l,k);
     float** C = allocate_matrix(m,k);
@@ -46,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     
   
-    printf("Naive Mult.\t General Strassen\t  Same result\n");
+    printf("\nPerforming Naive Mult. and General Strassen...\tSame result: ");
     
     strassen_rectangular_multiplication(CC,(float const *const *const)A1, m, l, (float const *const *const)B1, l, k);
 
@@ -54,11 +53,11 @@ int main(int argc, char *argv[]) {
                                             (float const *const *const)B1,
                                              m, l, k);
 
-    printf("\t\t\t\t\t\t %d\n", same_matrix((float const *const *const)CC,
+    printf("(0: no, 1: yes) %d\n", same_matrix((float const *const *const)CC,
                              (float const *const *const)C, m, k));
     
-    */
-    printf("n\tStrassen Alg.\tOpt.Strassen Alg.\tSame result\n");
+    
+    printf("\nn\tStrassen Alg.\tOpt.Strassen \tSame result\n");
     for (size_t j = 1; j <= n; j = 2*j) 
     {   
         printf("%ld\t", j);
@@ -72,9 +71,13 @@ int main(int argc, char *argv[]) {
         printf("%d\n", same_matrix((float const *const *const)C0,
                                  (float const *const *const)C1, j, j));
     }
-
+    
     deallocate_matrix(A, n);
     deallocate_matrix(B, n);
+    deallocate_matrix(A1, m);
+    deallocate_matrix(B1, l);
+    deallocate_matrix(C, m);
+    deallocate_matrix(CC, m);
     deallocate_matrix(C0, n);
     deallocate_matrix(C1, n);
     
