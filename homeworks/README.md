@@ -4,7 +4,7 @@ The sub folders contain the report of the six mandatory homeworks and the reques
 
 * `homework_01`: matrix multiplication and Strassen's algorithm.
 * `homework_02`: binary heap.
-* `homework_03`: binary heap.
+* `homework_03`: binary heap (second part).
 * `homework_04`: sorting algorithms.
 * `homework_05`: sorting algorithms (second part).
 * `homework_06`: Dijkstra algorithm.
