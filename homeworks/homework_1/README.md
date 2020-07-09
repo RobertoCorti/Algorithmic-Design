@@ -16,7 +16,7 @@ Afterwards you can compile the code by executing `make`. This produces an execut
 
 The result will show at first the following table:
 ```bash
-n      Naive Alg. Strassen Alg.        Same result
+n      Naive Alg.   Strassen Alg.      Same result
 1	    0.000000	0.000000	       1
 2	    0.000000	0.000000	       1
 4	    0.000000	0.000000	       1
