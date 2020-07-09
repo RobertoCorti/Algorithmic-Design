@@ -13,4 +13,4 @@ The `Makefile` will be able to compile and generate the executable `new_heap_tes
 
 #### Report
 
-The final report of this homework can be read from [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_3/report/report.pdf)
+The final report of this homework can be read [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_3/report/report.pdf)
