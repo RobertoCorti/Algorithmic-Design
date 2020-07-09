@@ -27,9 +27,9 @@ n      Naive Alg. Strassen Alg. Same result
 128	    0.000000	0.000000	       1
 256	    0.000000	0.000000	       1
 512	    0.000000	0.000000	       1
-1024     0.000000	     0.000000	             1
-2048	 0.000000	     0.000000	             1
-4096     0.000000	     0.000000	             1
+1024        0.000000    0.000000               1
+2048        0.000000    0.000000               1
+4096        0.000000    0.000000               1
 ```
 
 The first column reports the number of the rows and columns in the tested matrices. The second and third columns in the output report the execution-time in seconds of the implementations of the naive algorithm and of the Strassen's algorithm, respectively.  Finally, the last column, which is exclusively meant to validate the implementations, contains the value 1 if and only if the result of the naive algorithm and that of the Strassen's algorithm are the same.
@@ -48,7 +48,7 @@ n       Strassen Alg. Opt.Strassen Alg.    Same result
 128	    0.000000	    0.000000	            1
 256	    0.000000	    0.000000	            1
 512	    0.000000	    0.000000	            1
-1024     0.000000	     0.000000	             1
-2048	 0.000000	     0.000000	             1
-4096     0.000000	     0.000000	             1
+1024        0.000000        0.000000                1
+2048        0.000000        0.000000                1
+4096        0.000000        0.000000                1
 ```
