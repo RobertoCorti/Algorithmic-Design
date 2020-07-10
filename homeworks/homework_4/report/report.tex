@@ -37,12 +37,12 @@
 		\end{center}
 	\textbf{implement \texttt{INSERTION SORT}, \texttt{QUICK SORT}, \texttt{BUBBLE SORT}, \texttt{SELECTION SORT}, and \texttt{HEAP SORT}.} \\
 	
-	\noindent These functions are implemented inside this folder following their relatives pseudo-codes. They are respectively written into the files \texttt{src/insertion\_sort.c}, \texttt{src/quick\_sort.c}, \texttt{src/bubble\_sort.c}, \texttt{src/selection\_sort.c}, \texttt{src/heap\_sort.c}. 
+	\noindent These functions are respectively implemented into the files \texttt{src/insertion\_sort.c}, \texttt{src/quick\_sort.c}, \texttt{src/bubble\_sort.c}, \texttt{src/selection\_sort.c} and  \texttt{src/heap\_sort.c}. 
 	
 	\section*{Exercise 2}
 	\textbf{For each of the implemented algorithm, draw a curve to represent the relation between the input size and the execution-time.} \\
 	
-	\noindent Once implemented the sorting algorithms, inside \texttt{src/main.c} I tested their performances by measuring the execution time for several input sizes $n$. We expect the following asymptotic complexities:
+	\noindent Once implemented the sorting algorithms, in \texttt{src/main.c} I tested their performances by measuring the execution time for several input sizes $n$. We expect the following asymptotic complexities:
 	\begin{itemize}
 		\item \texttt{INSERTION SORT} is $O(n^2)$ (worst-case) and $\Omega(n)$ (best-case), 
 		\item  \texttt{QUICK SORT} is $\Theta(n\log n)$ (average-case and best-case) and $\Theta(n^2)$ (worst-case),
@@ -97,7 +97,7 @@
 		
 		 
 		\item \textbf{\texttt{HEAP SORT} on a array $A$ whose length is $n$ takes time} $\Omega(n)$. 
-		As we explained in the point (a), we know that HEAP SORT in the best-case scenario has an overall cost of $\Theta(n)$. Then, since $T_{HS} (n) = \Theta(n)$ this is equivalent to say that  $T_{HS} (n) = \Omega(n)$ and $O(n)$. Thus, if this lower bound holds for the best scenario will also hold for every possible case and we conclude that the statement is true. 
+		As we explained in the point (a), we know that \texttt{HEAP SORT} in the best-case scenario has an overall cost of $\Theta(n)$. Then, since $T_{HS} (n) = \Theta(n)$ this is equivalent to say that  $T_{HS} (n) = \Omega(n)$ and, at the same time, $T_{HS} (n) = O(n)$. Thus, if this lower bound holds for the best scenario will also hold for every possible case and we conclude that the statement is true. 
 		
 		\item \textbf{What is the worst case complexity for \texttt{HEAP SORT}?}\\
 		The worst-case scenario in \texttt{HEAP SORT} is that one in which we do $n$ calls of \texttt{EXTRACT MIN} operation and for every iteration $i$ the cost of this function is $\Theta(\log i)$, where $i$ is the relatives number of nodes down the heap. Thus,
@@ -110,11 +110,11 @@
 		The same reasoning can be applied to the worst-case scenario which has complexity equal to $\Theta(n^2) $.
 		
 		\item \textbf{What is the complexity of \texttt{QUICK SORT}?}\\
-		As we already stated in the previous point the complexity of \texttt{QUICK SORT} is on average and in the optimal case $\Theta(n\log n)$, while for the worst-case is $\Theta(n^2)$.
+		As already stated in the previous point the complexity of \texttt{QUICK SORT} is on average and in the optimal case $\Theta(n\log n)$, while for the worst-case is $\Theta(n^2)$.
 		\item \textbf{\texttt{BUBBLE SORT} on a array $A$ whose length is $n$ takes time} $\Omega(n)$.
 		Since \texttt{BUBBLE SORT} involves two loops over the length $n$ of the array $A$, for any scenario the complexity of \texttt{BUBBLE SORT} is $\Theta(n^2)$. Automatically, \texttt{BUBBLE SORT} takes time $\Omega(n^2)$ and because $\Omega(n^2) \subset \Omega(n) $ we can conclude that the statement is formally true. However, we know that there exists a lower bound, in this case $n^2$, higher than $n$ and so this sentence is not useful in a performance analysis. 
 		\item  \textbf{What is the complexity of \texttt{BUBBLE SORT}?} \\
-		As we said before,  \texttt{BUBBLE SORT} involves two loops over the length $n$ of the array $A$, then for any scenario the complexity of \texttt{BUBBLE SORT} is $\Theta(n^2)$. 
+		As said before,  \texttt{BUBBLE SORT} involves two loops over the length $n$ of the array $A$, then for any scenario the complexity of \texttt{BUBBLE SORT} is $\Theta(n^2)$. 
 	\end{enumerate}
 
 	\section*{Exercise 4}
