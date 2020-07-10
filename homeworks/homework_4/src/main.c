@@ -108,9 +108,11 @@ int main(int argc, char *argv[])
                        leq_int, NUM_OF_REPETITIONS);
     }
     printf("\n\n\n");
-    printf("Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
-    printf("    \t          \t  Select\n");
-    printf("    \t(Random Case)\t(Random Case)\t");
+    //printf("Size\tQuick Sort\tQuick Sort +\tHeap Sort\n");
+    //printf("    \t          \t  Select\n");
+    //printf("    \t(Random Case)\t(Random Case)\t");
+    printf("Size\tQuick Sort\tHeap Sort\n");
+    printf("    \t(Random Case)\t\t");
     for (i=2; (1<<i)<=MAX_SIZE_NLOGN; i++) {
         const unsigned int A_size=1<<i;
         printf("\n2^%d",i);

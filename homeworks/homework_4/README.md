@@ -1,4 +1,4 @@
-## Homework 04: Binary Heaps (second part)
+## Homework 04: Sorting Algorithms
 
 #### How to compile
 
