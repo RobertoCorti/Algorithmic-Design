@@ -12,7 +12,9 @@
 \usepackage{enumitem}
 \usepackage{fancybox}
 \usepackage{tikz}
+\usepackage{caption}
 
+\captionsetup{labelfont={color=black,bf}}
 
 
 \makeatletter
@@ -64,7 +66,7 @@
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=1.1\textwidth]{quicksort.png}  
+		\includegraphics[width=.8\textwidth]{../plot/quicksort.png}  
 		\caption{Benchmark of the \texttt{quick\_sort} method compared to its version when the \texttt{select} algorithm is involved in the selection of the pivot.}
 		\label{plot}
 	\end{figure}
