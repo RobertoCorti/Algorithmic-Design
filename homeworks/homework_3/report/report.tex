@@ -8,6 +8,9 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{graphicx}
+\usepackage{caption}
+
+\captionsetup{labelfont={color=black,bf}}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -26,7 +29,7 @@
 	(\textit{Hint}: use two arrays, key pos and rev pos, of natural numbers reporting the position of the key of a node and the node corresponding to a given position, respectively)} \\
 	
 	\noindent This new two-array based representation of the binary heap has been implemented inside this folder. I take as reference the same implementation done during the Homework 02. \\
-	Inside the struct \texttt{binheap\_type} I add a new member: \texttt{unsigned int* key\_pos}. This array store in its i-th position the index inside the nodes array of the i-th node. With this new implementation the functions \texttt{extract\_min}, \texttt{decrease\_key}, \texttt{heapify} and \texttt{print\_heap} don't modify the array of nodes \texttt{A} and all the operations related to the nodes involve just \texttt{key\_pos}.
+	Inside the struct \texttt{binheap\_type} I add two new members: \texttt{key\_pos} and \texttt{rev\_pos}. The first stores in its i-th position the index inside the node's array of the i-th node, while the second stores in the i-th position the index in the heap order of the i-th element of the node's array. With this new implementation the functions \texttt{extract\_min}, \texttt{decrease\_key}, \texttt{heapify} and \texttt{print\_heap} don't modify the array of nodes \texttt{A} and all the operations related to the nodes involve just \texttt{key\_pos}.
 	\section*{Exercise 2}
 	\textbf{Consider the next algorithm:}
 	

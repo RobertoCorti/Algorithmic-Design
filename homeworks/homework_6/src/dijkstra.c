@@ -41,7 +41,6 @@ void relax(Node* u, Node* v, unsigned int weight)
 void dijkstra(Graph* g, unsigned int source_id)
 {
     init_sssp(g);
-    
     Node * source = node(g, source_id);
     source->dist = 0;
     
@@ -83,7 +82,6 @@ void dijkstra_heap(Graph * g, unsigned int source_id)
 
     Node * source = node(g, source_id);
     source->dist = 0;
-    
     binheap_type* queue = build_heap(g->V, g->num_nodes, g->num_nodes, sizeof(Node), compare_dist);
     
     while ( !(is_heap_empty(queue)) )
