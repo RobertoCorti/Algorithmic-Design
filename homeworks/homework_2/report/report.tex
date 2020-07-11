@@ -87,15 +87,15 @@ Once defined this \texttt{struct}, the above requested functions are all impleme
 	
 	\section*{Exercise 4}
 	\textbf{Show that, with the array representation, the leaves of a
-	binary heap containing n nodes are indexed by $\lceil n/2 \rceil + 1, \lceil n/2 \rceil + 2, . . . n$.} \\
+	binary heap containing n nodes are indexed by $\lfloor n/2 \rfloor + 1, \lfloor n/2 \rfloor + 2, . . . n$.} \\
 
 
 
-	\noindent If we consider the node at the index $ \lceil n/2 \rceil +1$ and by definition its left child will be at the index 
+	\noindent If we consider the node at the index $ \lfloor n/2 \rfloor +1$ and by definition its left child will be at the index 
 	$$ 
-	\mathtt{LEFT}( \lceil n/2 \rceil +1 ) = 2(\lceil n/2 \rceil +1) > 2(n/2 - 1) = n.
+	\mathtt{LEFT}( \lfloor n/2 \rfloor +1 ) = 2(\lfloor n/2 \rfloor +1) > 2(n/2 - 1) = n.
 	$$
-	The left child is in a position greater than $\mathtt{HEAP\_SIZE}$, so the node at index $\lceil n/2 \rceil + 1$ has no children. Moreover, since a binary heap is a complete tree up to the leaf level, we conclude that the node $ \lceil n/2 \rceil +1$ is a leaf.
+	The left child is in a position greater than $\mathtt{HEAP\_SIZE}$, so the node at index $\lfloor n/2 \rfloor + 1$ has no children. Moreover, since a binary heap is a complete tree up to the leaf level, we conclude that the node $ \lfloor n/2 \rfloor +1$ is a leaf.
 	
 	\section*{Exercise 5}
 	\textbf{Show that the worst-case running time of $\mathtt{MAX\_HEAPIFY}$ on a heap of size n is $\Omega(\log_2 n)$.  (Hint: For a heap with n nodes, give node values that cause $\mathtt{MAX\_HEAPIFY}$ to be called recursively at every node on a simple path from the root down to a leaf).} \\

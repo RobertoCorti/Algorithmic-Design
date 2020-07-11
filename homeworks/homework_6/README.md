@@ -30,3 +30,6 @@ size    Array           Heap
 17500   0.000000        0.000000 
 ```
 
+#### Report
+
+The final report of this homework can be read [here](https://github.com/RobertoCorti/Algorithmic-Design/blob/master/homeworks/homework_6/report/report.pdf)
