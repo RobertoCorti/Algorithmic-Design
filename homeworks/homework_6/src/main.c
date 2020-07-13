@@ -9,7 +9,7 @@
 int main()
 {
     // reproducing slides' example 
-    /*
+    
     printf("\n--------------------------------------------\n");
     printf("        DIJKSTRA ALGORITHM       \n");
     printf("--------------------------------------------\n");
@@ -55,7 +55,7 @@ int main()
     printf("\n-HEAP QUEUE:\n");
     dijkstra_heap(&graph_h, 0);
     print_graph(&graph_h);
-    */
+    
     struct timespec start, end; 
     unsigned int s1 = 50000;
     unsigned int** adj_mat_1 = (unsigned int **)malloc(sizeof(unsigned int *)*s1);  
