@@ -57,7 +57,7 @@ int main()
     print_graph(&graph_h);
     
     struct timespec start, end; 
-    unsigned int s1 = 50000;
+    unsigned int s1 = 10000;
     unsigned int** adj_mat_1 = (unsigned int **)malloc(sizeof(unsigned int *)*s1);  
     
     for(size_t i=0; i<s1; i++)
@@ -83,9 +83,9 @@ int main()
     Graph g1 = build_graph(s1, nodes_1, adj_mat_1);
     Graph g2 = build_graph(s1, nodes_2, adj_mat_1);
 
-    // printf("\n");
-    // printf("--------------------------------------------\n");
-    // printf("              TEST             \n\n");
+    printf("\n");
+    printf("--------------------------------------------\n");
+    printf("              TEST             \n\n");
     
     printf("size\tArray\tHeap\n");
     for(size_t i=0; i<10; i++)

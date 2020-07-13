@@ -82,6 +82,7 @@ void dijkstra_heap(Graph * g, unsigned int source_id)
 
     Node * source = node(g, source_id);
     source->dist = 0;
+    
     binheap_type* queue = build_heap(g->V, g->num_nodes, g->num_nodes, sizeof(Node), compare_dist);
     
     while ( !(is_heap_empty(queue)) )
@@ -97,7 +98,6 @@ void dijkstra_heap(Graph * g, unsigned int source_id)
         heapify(queue, 0);
         free(neigh);
     }
-
     delete_heap(queue);
     
 }
