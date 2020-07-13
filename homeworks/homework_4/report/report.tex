@@ -13,6 +13,7 @@
 \usepackage{fancybox}
 \usepackage{tikz}
 \usepackage{caption}
+\usepackage{amssymb}
 \usepackage{subcaption}
 
 \captionsetup{labelfont={color=black,bf}}
@@ -75,7 +76,7 @@
 		\begin{minipage}{.75\textwidth}
 			\centering
 			\includegraphics[width=.7\linewidth]{../plots/quick_sort_plot.png}
-			\captionof{figure}{Benchmark of \texttt{INSERTION SORT} }
+			\captionof{figure}{Benchmark of \texttt{QUICK SORT} }
 			\label{quick_sort}
 		\end{minipage}%
 	    \hspace*{-1.5cm} 
@@ -114,7 +115,7 @@
 		\item \textbf{\texttt{BUBBLE SORT} on a array $A$ whose length is $n$ takes time} $\Omega(n)$.
 		Since \texttt{BUBBLE SORT} involves two loops over the length $n$ of the array $A$, for any scenario the complexity of \texttt{BUBBLE SORT} is $\Theta(n^2)$. Automatically, \texttt{BUBBLE SORT} takes time $\Omega(n^2)$ and because $\Omega(n^2) \subset \Omega(n) $ we can conclude that the statement is formally true. However, we know that there exists a lower bound, in this case $n^2$, higher than $n$ and so this sentence is not useful in a performance analysis. 
 		\item  \textbf{What is the complexity of \texttt{BUBBLE SORT}?} \\
-		As said before,  \texttt{BUBBLE SORT} involves two loops over the length $n$ of the array $A$, then for any scenario the complexity of \texttt{BUBBLE SORT} is $\Theta(n^2)$. 
+		As said before,  \texttt{BUBBLE SORT} involves two loops over the length $n$ of the array $A$, then for any instance of the problem the complexity of \texttt{BUBBLE SORT} is $\Theta(n^2)$. 
 	\end{enumerate}
 
 	\section*{Exercise 4}
@@ -325,6 +326,6 @@
 	 & = &   \frac{8}{5} cn^{3/2} + \Theta(n^{\log_4 3}) ~ ~ \in O(n^{3/2}) .
 	\end{eqnarray}
 	
-	Thus, $ T(n) \in O(n^{3/2}) $. 
+	Thus, $ T(n) \in O(n^{3/2}) ~~ \square$ 
 	
 \end{document}
